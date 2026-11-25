@@ -55,7 +55,7 @@ export default function Home() {
         <div className="mt-14 grid w-full max-w-2xl gap-6 sm:grid-cols-2">
 
           <Link
-            to="/create-game"
+            to="/lobby"
             className="group rounded-3xl border-2 border-[#252525] bg-[#F28C45] p-8 text-left shadow-[6px_6px_0px_#252525] transition hover:-translate-y-1 hover:shadow-[8px_8px_0px_#252525]"
           >
             <div className="text-5xl transition group-hover:rotate-[-10deg]">
