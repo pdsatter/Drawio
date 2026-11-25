@@ -1,0 +1,71 @@
+# =========================
+# Node.js / React
+# =========================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+build/
+dist/
+.next/
+.nuxt/
+.output/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Cache
+.npm/
+.eslintcache
+.parcel-cache/
+.vite/
+
+# =========================
+# Go
+# =========================
+
+# Compiled binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go build directories
+bin/
+vendor/
+
+# Go workspace
+go.work.sum
+
+# =========================
+# IDE / Editors
+# =========================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# OS files
+# =========================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# Logs
+# =========================
+
+*.log
+logs/
