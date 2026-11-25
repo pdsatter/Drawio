@@ -4,6 +4,7 @@ export interface Message {
 }
 
 export interface Lobby {
+  host: Player;
   code: string;
   players: Player[];
   messages: Message[];
