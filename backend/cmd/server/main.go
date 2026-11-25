@@ -10,12 +10,7 @@ import (
 
 func main() {
     lobbyManager := lobby.NewManager()
-
-    // TODO: Replace with authentication/session resolver.
-    resolvePlayer := func(r *http.Request) (lobby.Player, error) {
-        // Retrieve the player from their session cookie.
-        return lobby.Player{}, http.ErrNoCookie
-    }
+    sessions := auth.NewSessionStore()
 
     router := api.NewRouter(lobbyManager, resolvePlayer)
 
