@@ -1,12 +1,12 @@
-interface Player {
+export interface Player {
 	name: string;
 	icon: string;
 }
 
-interface GuestPlayer extends Player {
+export interface GuestPlayer extends Player {
   id: null;
 }
 
-interface LoggedInPlayer extends Player {
+export interface LoggedInPlayer extends Player {
   id: string;
 }
