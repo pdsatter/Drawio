@@ -1,24 +1,27 @@
-package handlers
+package api
 
 import (
-    "encoding/json"
     "net/http"
 
-    "your-module/internal/lobby"
+    "drawio/backend/internal/api/handlers"
+    "drawio/backend/internal/lobby"
 )
 
-type LobbyHandler struct {
-    Manager *lobby.Manager
-}
+func NewRouter(
+    lobbyManager *lobby.Manager,
+    resolvePlayer handlers.PlayerResolver,
+) http.Handler {
+    mux := http.NewServeMux()
 
-func (h *LobbyHandler) CreateLobby(w http.ResponseWriter, r *http.Request) {
-    newLobby, err := h.Manager.CreateLobby()
+    lobbyHandler := handlers.NewLobbyHandler(
+        lobbyManager,
+        resolvePlayer,
+    )
 
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
+    mux.HandleFunc("POST /lobbies", lobbyHandler.CreateLobby)
+    mux.HandleFunc("POST /lobbies/{code}/join", lobbyHandler.JoinLobby)
+    mux.HandleFunc("POST /lobbies/{code}/leave", lobbyHandler.LeaveLobby)
+    mux.HandleFunc("GET /lobbies/{code}", lobbyHandler.GetLobby)
 
-    w.Header().Set("Content-Type", "application/json")
-    json.NewEncoder(w).Encode(newLobby)
+    return mux
 }
