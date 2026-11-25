@@ -6,6 +6,7 @@ import (
 
     "drawio/backend/internal/api"
     "drawio/backend/internal/lobby"
+    "drawio/backend/internal/middleware"
 )
 
 func main() {
@@ -15,5 +16,5 @@ func main() {
     router := api.NewRouter(lobbyManager, resolvePlayer)
 
     log.Println("Server running on :8080")
-    log.Fatal(http.ListenAndServe(":8080", router))
+    log.Fatal(http.ListenAndServe(":8080", middleware.CORS(router)))
 }
