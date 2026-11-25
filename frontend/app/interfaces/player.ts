@@ -4,7 +4,8 @@ export interface Player {
 }
 
 export interface GuestPlayer extends Player {
-  id: null;
+	id: null;
+	guestId: string;
 }
 
 export interface LoggedInPlayer extends Player {
