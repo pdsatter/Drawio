@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"drawio/backend/internal/lobby"
+	"drawio/internal/lobby"
 )
 
 const (

@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"drawio/backend/internal/auth"
+	"drawio/internal/auth"
 )
 
 type GuestHandler struct {

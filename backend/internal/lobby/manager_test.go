@@ -2,7 +2,6 @@ package lobby
 
 import (
     "strings"
-    "sync"
     "testing"
 )
 

@@ -1,3 +1,5 @@
+import type { Player, GuestPlayer } from "./player";
+
 export interface Message {
   player: Player;
   message: string;

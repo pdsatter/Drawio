@@ -1,20 +1,21 @@
 package main
 
 import (
-    "log"
-    "net/http"
+	"log"
+	"net/http"
 
-    "drawio/backend/internal/api"
-    "drawio/backend/internal/lobby"
-    "drawio/backend/internal/middleware"
+	"drawio/internal/api"
+	"drawio/internal/auth"
+	"drawio/internal/lobby"
+	"drawio/internal/middleware"
 )
 
 func main() {
-    lobbyManager := lobby.NewManager()
-    sessions := auth.NewSessionStore()
+	lobbyManager := lobby.NewManager()
+	sessions := auth.NewSessionStore()
 
-    router := api.NewRouter(lobbyManager, resolvePlayer)
+	router := api.NewRouter(lobbyManager, sessions)
 
-    log.Println("Server running on :8080")
-    log.Fatal(http.ListenAndServe(":8080", middleware.CORS(router)))
+	log.Println("Server running on :8080")
+	log.Fatal(http.ListenAndServe(":8080", middleware.CORS(router)))
 }

@@ -1,7 +1,7 @@
 import backendUrl from "./backendUrl";
-import Player from "../interfaces/player";
+import type { GuestPlayer } from "../interfaces/player";
 
-export async function createGuestSession(): Promise<Player> {
+export async function createGuestSession(): Promise<GuestPlayer> {
   const response = await fetch(`${backendUrl}/auth/guest`, {
     method: "POST",
     credentials: "include",
@@ -13,3 +13,5 @@ export async function createGuestSession(): Promise<Player> {
 
   return response.json();
 }
+
+export default createGuestSession;

@@ -17,12 +17,6 @@ type Pages = {
   "/avatar": {
     params: {};
   };
-  "/create-game": {
-    params: {};
-  };
-  "/join-game": {
-    params: {};
-  };
   "/lobby/:roomCode": {
     params: {
       "roomCode": string;
@@ -38,7 +32,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": | {
     id: "root";
-    page: "/" | "/avatar" | "/create-game" | "/join-game" | "/lobby/:roomCode" | "/game/:roomCode";
+    page: "/" | "/avatar" | "/lobby/:roomCode" | "/game/:roomCode";
   };
   "routes/home.tsx": | {
     id: "routes/home";
@@ -48,16 +42,8 @@ type RouteFiles = {
     id: "routes/avatar";
     page: | "/avatar";
   };
-  "routes/create-game.tsx": | {
-    id: "routes/create-game";
-    page: | "/create-game";
-  };
-  "routes/join-game.tsx": | {
-    id: "routes/join-game";
-    page: | "/join-game";
-  };
-  "routes/game-lobby.tsx": | {
-    id: "routes/game-lobby";
+  "routes/lobby.tsx": | {
+    id: "routes/lobby";
     page: | "/lobby/:roomCode";
   };
   "routes/game.tsx": | {
@@ -70,8 +56,6 @@ type RouteModules = {
   "root": typeof import("./app/root.tsx");
   "routes/home": typeof import("./app/routes/home.tsx");
   "routes/avatar": typeof import("./app/routes/avatar.tsx");
-  "routes/create-game": typeof import("./app/routes/create-game.tsx");
-  "routes/join-game": typeof import("./app/routes/join-game.tsx");
-  "routes/game-lobby": typeof import("./app/routes/game-lobby.tsx");
+  "routes/lobby": typeof import("./app/routes/lobby.tsx");
   "routes/game": typeof import("./app/routes/game.tsx");
 };

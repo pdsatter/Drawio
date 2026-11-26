@@ -1,5 +1,5 @@
 import backendUrl from "./backendUrl";
-import Lobby from "../interfaces/lobby";
+import type { Lobby } from "../interfaces/lobby";
 
 
 export async function createLobby(): Promise<Lobby> {

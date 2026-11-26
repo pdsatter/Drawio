@@ -3,9 +3,9 @@ package api
 import (
 	"net/http"
 
-	"drawio/backend/internal/api/handlers"
-	"drawio/backend/internal/auth"
-	"drawio/backend/internal/lobby"
+	"drawio/internal/api/handlers"
+	"drawio/internal/auth"
+	"drawio/internal/lobby"
 )
 
 func NewRouter(
