@@ -1,4 +1,3 @@
-
 package handlers
 
 import (
@@ -72,6 +71,26 @@ func isLobbyMember(currentLobby *lobby.Lobby, player lobby.Player) bool {
 	return false
 }
 
+func filterDrawerMessages(
+	currentLobby *lobby.Lobby,
+	requestingPlayer lobby.Player,
+) *lobby.Lobby {
+	filtered := *currentLobby
+
+	messages := make([]lobby.Message, 0, len(currentLobby.Messages))
+
+	for _, message := range currentLobby.Messages {
+		isDrawer := playerKey(message.Player) == *currentLobby.Drawer
+
+		if !isDrawer {
+			messages = append(messages, message)
+		}
+	}
+
+	filtered.Messages = messages
+	return &filtered
+}
+
 // requireLobbyMember retrieves a lobby and verifies membership.
 func (h *LobbyHandler) requireLobbyMember(
 	w http.ResponseWriter,
@@ -111,7 +130,7 @@ func (h *LobbyHandler) CreateLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeJSON(w, http.StatusCreated, newLobby)
+	writeJSON(w, http.StatusCreated, filterDrawerMessages(newLobby, player))
 }
 
 // POST /lobbies/{code}/join
@@ -136,7 +155,7 @@ func (h *LobbyHandler) JoinLobby(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeJSON(w, http.StatusOK, updatedLobby)
+	writeJSON(w, http.StatusOK, filterDrawerMessages(updatedLobby, player))
 }
 
 // POST /lobbies/{code}/leave
@@ -184,7 +203,7 @@ func (h *LobbyHandler) GetLobby(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// The secret animal is never part of this response.
-	writeJSON(w, http.StatusOK, currentLobby)
+	writeJSON(w, http.StatusOK, filterDrawerMessages(currentLobby, player))
 }
 
 // POST /lobbies/{code}/start
@@ -221,7 +240,7 @@ func (h *LobbyHandler) StartGame(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeJSON(w, http.StatusOK, startedLobby)
+	writeJSON(w, http.StatusOK, filterDrawerMessages(startedLobby, player))
 }
 
 // GET /lobbies/{code}/animal
@@ -309,7 +328,7 @@ func (h *LobbyHandler) SendMessage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeJSON(w, http.StatusOK, messageResponse{
-		Lobby:   updatedLobby,
+		Lobby:   filterDrawerMessages(updatedLobby, player),
 		Correct: correct,
 		Points:  points,
 	})
