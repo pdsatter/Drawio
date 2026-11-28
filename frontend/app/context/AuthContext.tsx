@@ -8,7 +8,7 @@ import {
 } from "react";
 
 import createGuestSession from "../api/auth";
-import type { GuestPlayer, Player } from "../interfaces/player";
+import type { Player } from "../interfaces/player";
 
 interface AuthContextType {
     player: Player | null;

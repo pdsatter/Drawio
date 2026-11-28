@@ -16,7 +16,7 @@ export default function Lobby() {
 
     async function refreshLobby() {
       try {
-		if (!roomCode) return;
+        if (!roomCode) return;
         const currentLobby = await getLobby(roomCode);
         if (active) {
           setLobby(currentLobby);
@@ -28,6 +28,7 @@ export default function Lobby() {
         }
       }
     }
+
 
     refreshLobby();
     const interval = window.setInterval(refreshLobby, 2000);
@@ -48,6 +49,31 @@ export default function Lobby() {
       setError(requestError instanceof Error ? requestError.message : "Could not leave lobby");
     }
   }
+
+  async function handleStartGame() {
+    if (!roomCode) return;
+
+    try {
+      const response = await fetch(`/api/lobbies/${roomCode}/start`, {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.error ?? "Could not start game.");
+      }
+
+      navigate(`/game/${roomCode}`);
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error
+          ? requestError.message
+          : "Could not start game."
+      );
+    }
+  }
+
 
   return (
     <main className="min-h-screen bg-[#F8F3E8] text-[#252525]">
@@ -107,12 +133,14 @@ export default function Lobby() {
           >
             Leave Lobby
           </button>
-          <Link
-            to={`/game/${lobby?.code ?? roomCode}`}
-            className="rounded-full border-2 border-[#252525] bg-[#F28C45] px-6 py-3 font-black shadow-[3px_3px_0px_#252525] transition hover:-translate-y-1"
+          <button
+            type="button"
+            onClick={handleStartGame}
+            disabled={!lobby || lobby.state !== "waiting"}
+            className="rounded-full border-2 border-[#252525] bg-[#F28C45] px-6 py-3 font-black shadow-[3px_3px_0px_#252525] transition hover:-translate-y-1 disabled:opacity-50"
           >
             Start Game
-          </Link>
+          </button>
         </div>
       </section>
     </main>

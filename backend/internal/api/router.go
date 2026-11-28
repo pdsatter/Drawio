@@ -27,6 +27,9 @@ func NewRouter(
 	mux.HandleFunc("POST /lobbies/{code}/join", lobbyHandler.JoinLobby)
 	mux.HandleFunc("POST /lobbies/{code}/leave", lobbyHandler.LeaveLobby)
 	mux.HandleFunc("GET /lobbies/{code}", lobbyHandler.GetLobby)
+	mux.HandleFunc("POST /lobbies/{code}/start", lobbyHandler.StartGame)
+	mux.HandleFunc("GET /lobbies/{code}/animal", lobbyHandler.GetAnimal)
+	mux.HandleFunc("POST /lobbies/{code}/messages", lobbyHandler.SendMessage)
 
 	return mux
 }
